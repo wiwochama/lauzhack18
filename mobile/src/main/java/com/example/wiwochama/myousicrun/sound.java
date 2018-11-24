@@ -2,12 +2,18 @@ package com.example.wiwochama.myousicrun;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import soundPool;
 
-public class MainActivity extends AppCompatActivity {
+global int integration_time = 5;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+public class Sound_evet {
+
+    public void sound_start() {
+
+    }
+
+    public void test(){
+        System.out.print("yes")
     }
 }
+
