@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import static java.lang.Thread.sleep;
 
 public class FakeRun {
+
     private MainActivity activity;
 
     public FakeRun(MainActivity act){
