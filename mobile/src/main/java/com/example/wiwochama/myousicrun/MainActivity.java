@@ -11,7 +11,8 @@ public class MainActivity extends AppCompatActivity {
     private double speed = 10;
     private int pace = 0;
 
-    private int stepPerMinBase = 160;
+    private final int stepPerMinBase = 160; // initial base stepPerMin for the session (if pace==0);
+    private final int stepPerMinMax = 280; // maximum stepPerMin defined for the session
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +56,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public double getStepObjective(){
-        return this.pace;
+        // linear interpolation
+        return stepPerMinBase + this.pace*(stepPerMinMax-stepPerMinBase);
     }
 
     public double getSpeed(){
         return this.speed;
+    }
+
+    public double getStepPerMinMax(){
+        return this.stepPerMinMax;
     }
 
     public void increasePace(){

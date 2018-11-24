@@ -44,7 +44,17 @@ public class FakeRun {
         activity.setStepPerMin(activity.getStepPerMin()*(1-l*integrationStep)
                         + l*integrationStep*activity.getStepObjective());
 
-        activity.setHeartRate(1600/(activity.getStepPerMin()-280));
+        activity.setHeartRate(getHeartRateFromStepPerMin(activity.getStepPerMin()));
     }
 
+    private double getStepPerMinFromHeartRate(double heartRate){
+        double c= getHeartRateFromStepPerMin(100)*(100-activity.getStepPerMinMax()); // the value 100 is arbitrary
+        return activity.getStepPerMinMax()- c/heartRate;
+    }
+
+    private double getHeartRateFromStepPerMin(double stepPerMin){
+        // aim for the sweetspot heartRate 130 at 180
+        double c = 1300;
+        return c/(stepPerMin-280);
+    }
 }
