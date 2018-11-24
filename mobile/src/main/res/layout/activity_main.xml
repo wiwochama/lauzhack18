@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.4" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guidelineH3"
@@ -73,7 +73,7 @@
         app:layout_constraintGuide_percent="1" />
 
     <ImageView
-        android:id="@+id/imageButtonBPM"
+        android:id="@+id/imageViewBPM"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@null"
@@ -82,7 +82,7 @@
         app:layout_constraintEnd_toStartOf="@id/guidelineVMiddle"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/valueBPM"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/icon_heart" />
 
@@ -92,14 +92,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/textValueSpeed"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHSpeedPace"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVMiddle"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/textValueBPM" />
+        tools:text="@string/textValueSpeed" />
 
     <TextView
         android:id="@+id/textPace"
@@ -107,12 +105,78 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="@string/textValuePace"
+        android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineH3"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineVMiddle"
         app:layout_constraintTop_toTopOf="@+id/guidelineHSpeedPace"
         tools:text="@string/textValuePace" />
+
+    <Button
+        android:id="@+id/buttonPlus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorPlus"
+        android:text="textPlus"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonLightning"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVMiddle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineH2"
+        tools:text="+" />
+
+    <Button
+        android:id="@+id/buttonMinus"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorMinus"
+        android:text="textMinus"
+        app:layout_constraintBottom_toTopOf="@+id/imageButtonStop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVMiddle"
+        app:layout_constraintTop_toTopOf="@+id/guidelineH2"
+        tools:text="-" />
+
+    <TextView
+        android:id="@+id/valueBPM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/textValueBPM"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineVMiddle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textKMh"
+        android:layout_width="68dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="KM/h"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textStepsMin"
+        android:layout_width="71dp"
+        android:layout_height="83dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Steps/min"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHSpeedPace" />
 </android.support.constraint.ConstraintLayout>
