@@ -4,10 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
-    private int heartRate = 60;
-    private int stepPerMin = 100;
-    private int speed = 10;
+    private double heartRate = 60;
+    private double stepPerMin = 100;
+    private double speed = 10;
     private int pace = 0;
+
+    private int stepPerMinBase = 160;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,27 +19,37 @@ public class MainActivity extends AppCompatActivity {
         fakeRun.startRun();
     }
 
-    public void setHeartRate(int heartRate){
-        this.heartRate = heartRate;
+    public void setHeartRate(double heartRate){
+        if(0<=heartRate && heartRate<=280) {
+            this.heartRate = heartRate;
+        }
+        else{
+            //you die !!!;
+            throw new RuntimeException("You died: invalid heart rate");
+        }
     }
 
-    public void setStepPerMin(int stepPerMin){
+    public void setStepPerMin(double stepPerMin){
         this.stepPerMin = stepPerMin;
     }
 
-    public void setSpeed(int speed){
+    public void setSpeed(double speed){
         this.speed = speed;
     }
 
-    public int getHeartRate(){
+    public double getHeartRate(){
         return this.heartRate;
     }
 
-    public int getStepPerMin(){
+    public double getStepPerMin(){
         return this.stepPerMin;
     }
 
-    public int getSpeed(){
+    public double getStepObjective(){
+        return this.pace;
+    }
+
+    public double getSpeed(){
         return this.speed;
     }
 

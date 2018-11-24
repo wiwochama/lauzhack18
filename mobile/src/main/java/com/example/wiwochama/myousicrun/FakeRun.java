@@ -13,9 +13,9 @@ public class FakeRun {
         increaseHeartRate(80, 2);
     }
 
-    private void increaseHeartRate(int hrLevel, int delay){
+    private void increaseHeartRate(double hrLevel, int delay){
         if (hrLevel > activity.getHeartRate()) {
-            for (int hr = activity.getHeartRate(); hr < hrLevel; hr++) {
+            for (double hr = activity.getHeartRate(); hr < hrLevel; hr++) {
                 activity.setHeartRate(hr);
                 try {
                     TimeUnit.SECONDS.sleep(delay);
@@ -25,4 +25,13 @@ public class FakeRun {
             }
         }
     }
+
+    private void respondToMusic(double integrationStep, double l){
+        // pas'(t) = l*(getStepsPace(t) - Pas(t))
+        activity.setStepPerMin(activity.getStepPerMin()*(1-l*integrationStep)
+                        + l*integrationStep*activity.getStepsPace());
+
+        activity.setHeartRate(1600/(activity.getStepPerMin()-280));
+    }
+
 }
