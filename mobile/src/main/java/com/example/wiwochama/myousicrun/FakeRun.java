@@ -18,11 +18,11 @@ public class FakeRun {
         increaseHeartRate(63, 2000);
     }
 
-    private void increaseHeartRate(final int hrLevel, int delay){
+    private void increaseHeartRate(final double hrLevel, double delay){
         if (hrLevel > activity.getHeartRate()) {
             final Handler handler = new Handler();
             Runnable runnableCode = new Runnable() {
-                int hr = activity.getHeartRate();
+                double hr = activity.getHeartRate();
                 @Override
                 public void run() {
                     // Do something here on the main thread
@@ -39,4 +39,13 @@ public class FakeRun {
             handler.post(runnableCode);
         }
     }
+
+    private void respondToMusic(double integrationStep, double l){
+        // pas'(t) = l*(getStepsPace(t) - Pas(t))
+        activity.setStepPerMin(activity.getStepPerMin()*(1-l*integrationStep)
+                        + l*integrationStep*activity.getStepObjective());
+
+        activity.setHeartRate(1600/(activity.getStepPerMin()-280));
+    }
+
 }
