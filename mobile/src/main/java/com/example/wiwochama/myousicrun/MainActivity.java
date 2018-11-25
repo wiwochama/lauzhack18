@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static double hrObjective; // Heart rate objective
     {
-        hrObjective = 160;
+        hrObjective = 130;
     }
 
     private static double integration_time;

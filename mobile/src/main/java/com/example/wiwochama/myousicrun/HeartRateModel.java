@@ -26,14 +26,12 @@ public class HeartRateModel {
 
     public double getHeartRateFromStepPerMin(double stepPerMin) {
         // aim for the sweet spot heartRate activity.getStepPerMinBase() at 180
-        double c;
+        double c =  heartRateBase* (stepPerMinMax - stepPerMinBase);
+        return c / (stepPerMinMax-stepPerMin);
+    }
 
-        if (stepPerMin < 200) c = 8;
-        else c = 13;
+    public double getHeartRateFromStepPerMin_dec(double stepPerMin, double delta) {
 
-        return heartRateBase + c*Math.log(stepPerMin);
-
-        //double c =  heartRateBase* (stepPerMinMax - stepPerMinBase);
-        //return c / (stepPerMinMax-stepPerMin);
+        return heartRateBase - delta;
     }
 }
