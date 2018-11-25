@@ -56,7 +56,7 @@ public class FakeRun {
 
     private void respondToMusic(double integrationStep, double l){
         // pas'(t) = l*(getStepsPace(t) - Pas(t))
-        double delta = activity.getPace()-activity.getStepPerMin();
+        double delta = activity.getStepObjective()-activity.getStepPerMin();
         activity.setStepPerMin(activity.getStepPerMin()+l*integrationStep*delta);
 
         //activity.setHeartRate(100);

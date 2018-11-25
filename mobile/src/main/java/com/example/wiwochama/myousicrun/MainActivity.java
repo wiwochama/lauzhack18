@@ -22,14 +22,14 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer mid_player;
 
     //VARIABLES
-    private static double step_objective;
+    private static double stepObjective; // Cadence objective
     {
-        step_objective = 160;
+        stepObjective = 160;
     }
 
-    private static double HR_objective;
+    private static double hrObjective; // Heart rate objective
     {
-        HR_objective = 160;
+        hrObjective = 160;
     }
 
     private static double integration_time;
@@ -40,34 +40,32 @@ public class MainActivity extends AppCompatActivity {
     private double heartRate = 60;
     private double stepPerMin = 180;
     private double speed = 10;
-    private double pace = 180;
+//    private double pace = 180;
     private boolean streaming = true;
 
-    private double absolutePace = 180;
-    private double stepPerMinBase =130;
-    private double stepPerMinMax = 280;
+//    private double absolutePace = 180;
+    private double stepPerMinBase =130;  // initial base stepPerMin for the session (if pace==0);
+    private double stepPerMinMax = 280;  // maximum stepPerMin defined for the session
     private double heartRateBase= 130;
     private double heartRateMax = 220;
 
     private HeartRateModel heartRateModel;
 
-    //private final int stepPerMinBase = 130; // initial base stepPerMin for the session (if pace==0);
-    //private final int stepPerMinMax = 280; // maximum stepPerMin defined for the session
-    private static float bass_volume = (float) (1 + Math.log(HR_objective / 220));
-    private static float high_volume = (float) (Math.log(220 / step_objective));
+    private static float bass_volume = (float) (1 + Math.log(hrObjective / 220));
+    private static float high_volume = (float) (Math.log(220 / stepObjective));
 
 
-    private double HR_mean = HR_objective;
-    private double step_mean = pace; //step_objective;
+    private double HR_mean = hrObjective;
+    private double step_mean = stepObjective;
 
     Queue<Double> HRs = new LinkedList<>();
     Queue<Double> steps = new LinkedList<>();
 
     private void initialize_queues() {
         for (int i = 0; i < (int) integration_time; i++) {
-            steps.add(pace);
-            //steps.add(step_objective);
-            HRs.add(HR_objective);
+//            steps.add(pace);
+            steps.add(stepObjective);
+            HRs.add(hrObjective);
         }
     }
 
@@ -98,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
 
             //Music Pace
             PlaybackParams plbParam = new PlaybackParams();
-            //plbParam.setSpeed((float) step_objective / 160);
-            plbParam.setSpeed((float) (pace / absolutePace));
+            plbParam.setSpeed((float) stepObjective / 160);
+//            plbParam.setSpeed((float) (pace / absolutePace));
 
             //Music Transformation :D
             if (bass_player != null) {
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
         initialize_queues();
     }
 
@@ -222,30 +220,39 @@ public class MainActivity extends AppCompatActivity {
         return this.speed;
     }
 
-    public double getPace(){
-        return pace;
+    public double getStepObjective(){
+        return stepObjective;
     }
 
     public HeartRateModel getHeartRateModel() {
         return heartRateModel;
     }
 
-    public void increasePace(View view) {
-        if (this.pace < 240) {
-            this.pace++;
+    public void increaseStepObjective(View view) {
+        if (stepObjective < 240) {
+            stepObjective++;
             final TextView textView = findViewById(R.id.textPace);
-            textView.setText(String.valueOf(this.pace));
+            textView.setText(String.valueOf(stepObjective));
+        }
+        this.checkSmiley();
+    }
+
+    public void increasePace(View view) {
+        increaseStepObjective(view);
+    }
+
+
+    public void decreaseStepObjective(View view) {
+        if (stepObjective > 100) {
+            stepObjective--;
+            final TextView textView = findViewById(R.id.textPace);
+            textView.setText(String.valueOf(stepObjective));
         }
         this.checkSmiley();
     }
 
     public void decreasePace(View view) {
-        if (this.pace > 100) {
-            this.pace--;
-            final TextView textView = findViewById(R.id.textPace);
-            textView.setText(String.valueOf(this.pace));
-        }
-        this.checkSmiley();
+        decreaseStepObjective(view);
     }
 
     public void playPause(View view) {
@@ -267,9 +274,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void checkSmiley(){
         final ImageView imageView = findViewById(R.id.imageSmiley);
-        if (Math.abs(this.stepPerMin - this.pace) < 5.0) {
+        if (Math.abs(this.stepPerMin - stepObjective) < 5.0) {
             imageView.setImageResource(R.drawable.happy);
-        } else if (Math.abs(this.stepPerMin - this.pace) < 15.0){
+        } else if (Math.abs(this.stepPerMin - stepObjective) < 15.0){
             imageView.setImageResource(R.drawable.bof);
         } else {
             imageView.setImageResource(R.drawable.bad);
