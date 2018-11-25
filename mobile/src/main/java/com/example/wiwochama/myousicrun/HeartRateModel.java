@@ -31,7 +31,7 @@ public class HeartRateModel {
     }
 
     public double getHeartRateFromStepPerMin_dec(double stepPerMin, double delta) {
-
-        return heartRateBase - delta;
+        // diff entre le nouveau et l'ancien heartbeat
+        return 0.005 ;
     }
 }
