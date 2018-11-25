@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HeartRateModel heartRateModel;
 
+    private static double musicPace = 120;
     private static float bass_volume = (float) (1 + Math.log(hrObjective / 220));
     private static float high_volume = (float) (Math.log(220 / stepObjective));
 
@@ -75,47 +76,45 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
 
-            if (!streaming) {
-                seconds++;
+            seconds++;
 
-                // scheduled another events to be in 10 seconds later
-                handler.postDelayed(PeriodicUpdate, 1000);
-                // below is whatever you want to do
+            // scheduled another events to be in 10 seconds later
+            handler.postDelayed(PeriodicUpdate, 1000);
+            // below is whatever you want to do
 
-                double HR_now = getHeartRate();
-                HRs.add(HR_now);
+            double HR_now = getHeartRate();
+            HRs.add(HR_now);
 
-                double step_now = getStepPerMin();
-                steps.add(step_now);
-                double HR_old = HRs.remove();
-                double step_old = steps.remove();
+            double step_now = getStepPerMin();
+            steps.add(step_now);
+            double HR_old = HRs.remove();
+            double step_old = steps.remove();
 
-                //Volume Computation
-                HR_mean += (HR_now - HR_old) / integration_time;
-                bass_volume = (float) (1 + Math.log(HR_mean));
+            //Volume Computation
+            HR_mean += (HR_now - HR_old) / integration_time;
+            bass_volume = (float) (1 + Math.log(HR_mean));
 
-                step_mean += (step_now - step_old) / integration_time;
-                high_volume = (float) (Math.log(220 / step_mean));
+            step_mean += (step_now - step_old) / integration_time;
+            high_volume = (float) (Math.log(220 / step_mean));
 
 
-                //Music Pace
-                PlaybackParams plbParam = new PlaybackParams();
-                plbParam.setSpeed((float) stepObjective / 160);
-                //            plbParam.setSpeed((float) (pace / absolutePace));
+            //Music Pace
+            PlaybackParams plbParam = new PlaybackParams();
+            plbParam.setSpeed((float) (stepObjective / musicPace));
+            //            plbParam.setSpeed((float) (pace / absolutePace));
 
-                //Music Transformation :D
-                if (bass_player != null) {
-                    bass_player.setPlaybackParams(plbParam);
-                    bass_player.setVolume(bass_volume, bass_volume);
+            //Music Transformation :D
+            if (bass_player != null) {
+                bass_player.setPlaybackParams(plbParam);
+                bass_player.setVolume(bass_volume, bass_volume);
 
-                }
-                if (high_player != null) {
-                    high_player.setPlaybackParams(plbParam);
-                    high_player.setVolume(high_volume, high_volume);
-                }
-                if (mid_player != null) {
-                    mid_player.setPlaybackParams(plbParam);
-                }
+            }
+            if (high_player != null) {
+                high_player.setPlaybackParams(plbParam);
+                high_player.setVolume(high_volume, high_volume);
+            }
+            if (mid_player != null) {
+                mid_player.setPlaybackParams(plbParam);
             }
         }
     };
@@ -124,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         playPause(findViewById(R.id.imageButtonPlayPause));
         initialize_queues();
     }
@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
     public void play1(View v) {
         //play the first track after having checked if it needed initialization
         if (bass_player == null) {
-            bass_player = MediaPlayer.create(this, R.raw.bass_freak);
+            bass_player = MediaPlayer.create(this, R.raw.basshappy);
             bass_player.setLooping(true);
             bass_player.setVolume(bass_volume, bass_volume);
 
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void play2(View v) {
         if (high_player == null) {
-            high_player = MediaPlayer.create(this, R.raw.high_freak);
+            high_player = MediaPlayer.create(this, R.raw.highhappy);
             high_player.setLooping(true);
             high_player.setVolume(high_volume, high_volume);
 
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void play3(View v) {
         if (mid_player == null) {
-            mid_player = MediaPlayer.create(this, R.raw.mid_freak);
+            mid_player = MediaPlayer.create(this, R.raw.mihappy);
             mid_player.setLooping(true);
             float mid_volume = Math.min(high_volume, bass_volume);
             mid_player.setVolume(mid_volume, mid_volume);
