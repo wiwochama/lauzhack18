@@ -23,19 +23,16 @@ public class MainActivity extends AppCompatActivity {
 
     //VARIABLES
     private static double step_objective;
-
     {
         step_objective = 160;
     }
 
     private static double HR_objective;
-
     {
         HR_objective = 160;
     }
 
     private static double integration_time;
-
     {
         integration_time = 5;
     }
@@ -43,8 +40,14 @@ public class MainActivity extends AppCompatActivity {
     private double heartRate = 60;
     private double stepPerMin = 180;
     private double speed = 10;
-    private int pace = 180;
+    private double pace = 180;
     private boolean streaming = true;
+
+    private double absolutePace = 180;
+    private double stepPerMinBase =130;
+    private double stepPerMinMax = 280;
+    private double heartRateBase= 130;
+    private double heartRateMax = 220;
 
     private HeartRateModel heartRateModel;
 
@@ -55,14 +58,15 @@ public class MainActivity extends AppCompatActivity {
 
 
     private double HR_mean = HR_objective;
-    private double step_mean = step_objective;
+    private double step_mean = pace; //step_objective;
 
     Queue<Double> HRs = new LinkedList<>();
     Queue<Double> steps = new LinkedList<>();
 
     private void initialize_queues() {
         for (int i = 0; i < (int) integration_time; i++) {
-            steps.add(step_objective);
+            steps.add(pace);
+            //steps.add(step_objective);
             HRs.add(HR_objective);
         }
     }
@@ -94,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
             //Music Pace
             PlaybackParams plbParam = new PlaybackParams();
-            plbParam.setSpeed((float) step_objective / 160);
+            //plbParam.setSpeed((float) step_objective / 160);
+            plbParam.setSpeed((float) (pace / absolutePace));
 
             //Music Transformation :D
             if (bass_player != null) {
@@ -175,9 +180,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        int stepPerMinBase = 130;
-        int stepPerMinMax = 280;
-        this.heartRateModel = new HeartRateModel(stepPerMinBase, stepPerMinMax, 160);
+        this.heartRateModel = new HeartRateModel(stepPerMinBase, stepPerMinMax, heartRateBase);
 
         FakeRun fakeRun = new FakeRun(MainActivity.this);
         fakeRun.startRunActiveResponse();
