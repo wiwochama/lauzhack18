@@ -102,26 +102,6 @@
         app:layout_constraintVertical_bias="0.275" />
 
     <TextView
-        android:id="@+id/textStepsPerMin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="@string/textValuePace"
-        android:textColor="@android:color/background_dark"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineH3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.559"
-        app:layout_constraintStart_toStartOf="@+id/guidelineVMiddle"
-        app:layout_constraintTop_toTopOf="@+id/guidelineHSpeedPace"
-        app:layout_constraintVertical_bias="0.035"
-        tools:text="@string/textValuePace" />
-
-    <TextView
         android:id="@+id/valueBPM"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -129,7 +109,26 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:text="@string/textValueBPM"
+        android:textColor="@android:color/background_dark"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineH3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.559"
+        app:layout_constraintStart_toStartOf="@+id/guidelineVMiddle"
+        app:layout_constraintTop_toTopOf="@+id/guidelineHSpeedPace"
+        app:layout_constraintVertical_bias="0.035" />
+
+    <TextView
+        android:id="@+id/textStepsPerMin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/textValuePace"
         android:textColor="@android:color/background_dark"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineH3"
@@ -137,7 +136,8 @@
         app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.454" />
+        app:layout_constraintVertical_bias="0.454"
+        tools:text="@string/textValuePace"/>
 
     <TextView
         android:id="@+id/textKMh"
@@ -158,20 +158,21 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textStepsMin"
-        android:layout_width="71dp"
+        android:id="@+id/textBPM"
+        android:layout_width="97dp"
         android:layout_height="22dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Steps/min"
+        android:gravity="center"
+        android:text="Heart Beat"
         android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineH3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.587"
         app:layout_constraintStart_toStartOf="@+id/guidelineVMiddle"
-        app:layout_constraintTop_toBottomOf="@+id/textStepsPerMin"
+        app:layout_constraintTop_toBottomOf="@+id/valueBPM"
         app:layout_constraintVertical_bias="0.0" />
 
     <android.support.constraint.Guideline
@@ -237,20 +238,20 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineH2" />
 
     <TextView
-        android:id="@+id/textBPM"
+        android:id="@+id/textStepsMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Heart Beat"
+        android:text="Steps/min"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineH3"
         app:layout_constraintEnd_toStartOf="@+id/guidelineVMiddle"
         app:layout_constraintHorizontal_bias="0.544"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/valueBPM"
+        app:layout_constraintTop_toBottomOf="@+id/textStepsPerMin"
         app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
