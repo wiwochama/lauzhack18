@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //Music Pace
                 PlaybackParams plbParam = new PlaybackParams();
-                plbParam.setSpeed((float) stepObjective / musicPace);
+                plbParam.setSpeed((float) (stepObjective / musicPace));
                 //            plbParam.setSpeed((float) (pace / absolutePace));
 
                 //Music Transformation :D
