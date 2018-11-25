@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private double heartRate = 60;
-    private double stepPerMin = 180;
+    private double stepPerMin = 160;
     private double speed = 10;
 //    private double pace = 180;
-    private boolean streaming = true;
+    private boolean streaming = false;
 
 //    private double absolutePace = 180;
     private double stepPerMinBase =130;  // initial base stepPerMin for the session (if pace==0);
@@ -119,7 +119,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
+        playPause(findViewById(R.id.imageButtonPlayPause));
+
         initialize_queues();
     }
 
@@ -284,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stop(View v) {
+        playPause(v);
         stopPlayer();
     }
 
