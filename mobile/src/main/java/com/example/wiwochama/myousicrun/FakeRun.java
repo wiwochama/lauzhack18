@@ -54,8 +54,8 @@ public class FakeRun {
     }
 
     private double getHeartRateFromStepPerMin(double stepPerMin){
-        // aim for the sweetspot heartRate 130 at 180
-        double c = 1300;
+        // aim for the sweetspot heartRate activity.getStepPerMinBase() at 180
+        double c = activity.getStepPerMinBase()*(activity.getStepPerMinMax()-180);
         return c/(stepPerMin-280);
     }
 }

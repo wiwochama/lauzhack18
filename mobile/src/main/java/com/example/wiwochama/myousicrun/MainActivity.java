@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private double speed = 10;
     private int pace = 0;
 
-    private final int stepPerMinBase = 160; // initial base stepPerMin for the session (if pace==0);
+    private final int stepPerMinBase = 130; // initial base stepPerMin for the session (if pace==0);
     private final int stepPerMinMax = 280; // maximum stepPerMin defined for the session
 
     @Override
@@ -66,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
 
     public double getStepPerMinMax(){
         return this.stepPerMinMax;
+    }
+    public double getStepPerMinBase(){
+        return this.stepPerMinBase;
     }
 
     public void increasePace(){
