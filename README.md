@@ -40,7 +40,9 @@ we suppose the following effect of the music on the runner (motivated by our own
    2. The synchronisation between the tempo of the music and his "running tempo" helps him keep his cadence, and he will sligthly modify his own cadence if necessary to match the tempo of the music (if the desynchronisation is small enough)
    3. More melody might encourage some "heroic" effect and helps him go faster.
    
+ Hence, depending on the goal of the user (defined in step per minute), we modulate the different tracks mentionned above in order to keep him as closed as possible to his goal (motivating him by boosting the bass and the tempo, or calming him by moderating the tempo and the volume of the bass).
    
 
 # Simulation of the data
-Due to technical issues, 
+
+Due to a technical issue during this 24 hours Hackathon, we were not able to get access to a smart watch to collect the physiologic data we need to adapt the music. We simulated the behaviour of a dummy utilisator, with a simple response to the stimuli caused by music: it will always follow its push, never get tired. We know this is not realistic, but 
