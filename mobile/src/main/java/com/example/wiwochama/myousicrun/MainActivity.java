@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -11,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     private double stepPerMin = 100;
     private double speed = 10;
     private int pace = 0;
+    private boolean streaming = true;
 
     private final int stepPerMinBase = 130; // initial base stepPerMin for the session (if pace==0);
     private final int stepPerMinMax = 280; // maximum stepPerMin defined for the session
@@ -90,5 +92,15 @@ public class MainActivity extends AppCompatActivity {
             final TextView textView = findViewById(R.id.textPace);
             textView.setText(String.valueOf(this.pace));
         }
+    }
+
+    public void playPause(View view){
+        final ImageButton imageButton = findViewById(R.id.imageButtonPlayPause);
+        if (streaming){
+            imageButton.setImageResource(R.drawable.ic_play_arrow_black_86dp);
+        } else {
+            imageButton.setImageResource(R.drawable.ic_pause_black_86dp);
+        }
+        this.streaming = !this.streaming;
     }
 }
