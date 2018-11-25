@@ -100,16 +100,16 @@ public class MainActivity extends AppCompatActivity {
 //            plbParam.setSpeed((float) (pace / absolutePace));
 
             //Music Transformation :D
-            if (bass_player != null) {
+            if (bass_player != null && streaming) {
                 bass_player.setPlaybackParams(plbParam);
                 bass_player.setVolume(bass_volume, bass_volume);
 
             }
-            if (high_player != null) {
+            if (high_player != null && streaming) {
                 high_player.setPlaybackParams(plbParam);
                 high_player.setVolume(high_volume, high_volume);
             }
-            if (mid_player != null) {
+            if (mid_player != null && streaming) {
                 mid_player.setPlaybackParams(plbParam);
             }
         }
@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void increaseStepObjective(View view) {
         if (stepObjective < 240) {
-            stepObjective++;
+            stepObjective += 5;
             final TextView textView = findViewById(R.id.textPace);
             textView.setText(String.valueOf(stepObjective));
         }
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void decreaseStepObjective(View view) {
         if (stepObjective > 100) {
-            stepObjective--;
+            stepObjective -= 5;
             final TextView textView = findViewById(R.id.textPace);
             textView.setText(String.valueOf(stepObjective));
         }
