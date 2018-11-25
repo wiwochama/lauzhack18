@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static int seconds = 0;
 
     private double heartRate = 60;
-    private double stepPerMin = 160;
+    private double stepPerMin = 100;
     private double speed = 10;
 //    private double pace = 180;
     private boolean streaming = false;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 //    private double absolutePace = 180;
     private double stepPerMinBase =130;  // initial base stepPerMin for the session (if pace==0);
     private double stepPerMinMax = 280;  // maximum stepPerMin defined for the session
-    private double heartRateBase= 130;
+    private double heartRateBase= 80;
 
     private HeartRateModel heartRateModel;
 

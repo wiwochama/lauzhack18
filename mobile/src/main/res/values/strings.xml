@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">mYOUsicRUN</string>
-    <string name="textValueBPM">120</string>
+    <string name="textValueBPM">80</string>
     <string name="textValueSpeed">100</string>
-    <string name="textValuePace">180</string>
+    <string name="textValuePace">100</string>
 </resources>

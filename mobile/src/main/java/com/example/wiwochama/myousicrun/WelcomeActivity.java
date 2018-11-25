@@ -18,7 +18,12 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void startRunning(View view) {
-        int stepPerMinute = (int)(((distance * 1000) / (time)) * (1.0 / STRIDE));
+        int stepPerMinute;
+        if (distance != 0 && time !=0){
+            stepPerMinute = (int)(((distance * 1000) / (time)) * (1.0 / STRIDE));
+        }
+        else { stepPerMinute = 160; }
+
         Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
         intent.putExtra("stepPerMinute", String.valueOf(stepPerMinute));
         startActivity(intent);
