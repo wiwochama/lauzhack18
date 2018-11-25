@@ -3,6 +3,7 @@ package com.example.wiwochama.myousicrun;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -41,10 +42,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void setStepPerMin(double stepPerMin){
         this.stepPerMin = stepPerMin;
+        final TextView textView = findViewById(R.id.textStepsPerMin);
+        textView.setText(String.valueOf(stepPerMin));
     }
 
     public void setSpeed(double speed){
         this.speed = speed;
+        final TextView textView = findViewById(R.id.textSpeed);
+        textView.setText(String.valueOf(speed));
     }
 
     public double getHeartRate(){
@@ -71,15 +76,19 @@ public class MainActivity extends AppCompatActivity {
         return this.stepPerMinBase;
     }
 
-    public void increasePace(){
+    public void increasePace(View view){
         if (this.pace < 10){
             this.pace++;
+            final TextView textView = findViewById(R.id.textPace);
+            textView.setText(String.valueOf(this.pace));
         }
     }
 
-    public void decreasePace(){
+    public void decreasePace(View view){
         if (this.pace > -10){
             this.pace--;
+            final TextView textView = findViewById(R.id.textPace);
+            textView.setText(String.valueOf(this.pace));
         }
     }
 }

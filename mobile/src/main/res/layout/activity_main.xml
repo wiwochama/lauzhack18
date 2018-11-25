@@ -188,7 +188,7 @@
         app:layout_constraintGuide_begin="260dp" />
 
     <ImageButton
-        android:id="@+id/imageButtonIncreasePace"
+        android:id="@+id/imageButtonDecreasePace"
         android:layout_width="91dp"
         android:layout_height="91dp"
         android:layout_marginBottom="8dp"
@@ -196,6 +196,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@null"
+        android:onClick="decreasePace"
         app:layout_constraintBottom_toTopOf="@+id/guidelineH1"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
@@ -203,7 +204,7 @@
         app:srcCompat="@drawable/ic_remove_black_120dp" />
 
     <ImageButton
-        android:id="@+id/imageButtonDecreasePace"
+        android:id="@+id/imageButtonIncreasePace"
         android:layout_width="85dp"
         android:layout_height="87dp"
         android:layout_marginBottom="8dp"
@@ -211,6 +212,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@null"
+        android:onClick="increasePace"
         app:layout_constraintBottom_toTopOf="@+id/guidelineH1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
