@@ -1,6 +1,7 @@
 package com.example.wiwochama.myousicrun;
 
 import android.os.Handler;
+import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
@@ -41,7 +42,7 @@ public class FakeRun {
     }
 
     public void startRunActiveResponse(){
-        activity.setStepPerMin(100);
+        //activity.setStepPerMin(100);
         final double integrationStep = 1;
         final Handler handler = new Handler();
         Runnable runnableCode = new Runnable(){
@@ -73,5 +74,6 @@ public class FakeRun {
             activity.setStepPerMin(activity.getStepPerMin()-1);
         }
 
+        activity.setSpeed(60*1.25*activity.getStepPerMin()/1000);
     }
 }

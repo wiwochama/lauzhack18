@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private double stepPerMinBase =130;  // initial base stepPerMin for the session (if pace==0);
     private double stepPerMinMax = 280;  // maximum stepPerMin defined for the session
     private double heartRateBase= 130;
-    private double heartRateMax = 220;
 
     private HeartRateModel heartRateModel;
 
@@ -63,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialize_queues() {
         for (int i = 0; i < (int) integration_time; i++) {
-//            steps.add(pace);
             steps.add(stepObjective);
             HRs.add(hrObjective);
         }
@@ -97,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
             //Music Pace
             PlaybackParams plbParam = new PlaybackParams();
             plbParam.setSpeed((float) stepObjective / 160);
-//            plbParam.setSpeed((float) (pace / absolutePace));
 
             //Music Transformation :D
             if (bass_player != null && streaming) {
