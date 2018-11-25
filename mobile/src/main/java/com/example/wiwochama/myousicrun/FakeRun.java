@@ -42,12 +42,12 @@ public class FakeRun {
 
     public void startRunActiveResponse(){
         activity.setStepPerMin(100);
-        final double integrationStep = 0.01;
+        final double integrationStep = 1;
         final Handler handler = new Handler();
         Runnable runnableCode = new Runnable(){
             @Override
                     public void run(){
-                respondToMusic(integrationStep, 1);
+                respondToMusic(integrationStep, 0.1);
                 handler.postDelayed(this, (long) (integrationStep*1000));
             }
         };
@@ -57,9 +57,19 @@ public class FakeRun {
     private void respondToMusic(double integrationStep, double l){
         // pas'(t) = l*(getStepsPace(t) - Pas(t))
         double delta = activity.getStepObjective()-activity.getStepPerMin();
-        activity.setStepPerMin(activity.getStepPerMin()+l*integrationStep*delta);
+        //activity.setStepPerMin(activity.getStepPerMin()+l*integrationStep*delta);
+        if (activity.getStepPerMin() < activity.getStepObjective()) {
 
-        //activity.setHeartRate(100);
-        activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()));
+            activity.setStepPerMin(activity.getStepPerMin()+3);
+            activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()));
+        }
+
+        if (activity.getStepPerMin() > activity.getStepObjective()) {
+            double old_steps = activity.getStepPerMin();
+            double delta_ = old_steps-activity.getStepObjective();
+            activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin_dec(activity.getStepPerMin(),delta_));
+            activity.setStepPerMin(activity.getStepPerMin()-1);
+        }
+
     }
 }
