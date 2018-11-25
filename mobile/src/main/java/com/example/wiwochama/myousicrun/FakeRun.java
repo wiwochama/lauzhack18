@@ -41,12 +41,13 @@ public class FakeRun {
     }
 
     public void startRunActiveResponse(){
-        final double integrationStep = 2;
+        activity.setStepPerMin(100);
+        final double integrationStep = 0.01;
         final Handler handler = new Handler();
         Runnable runnableCode = new Runnable(){
             @Override
                     public void run(){
-                respondToMusic(integrationStep, 0.001);
+                respondToMusic(integrationStep, 1);
                 handler.postDelayed(this, (long) (integrationStep*1000));
             }
         };
@@ -55,9 +56,10 @@ public class FakeRun {
 
     private void respondToMusic(double integrationStep, double l){
         // pas'(t) = l*(getStepsPace(t) - Pas(t))
-        activity.setStepPerMin(activity.getStepPerMin()*(1-l*integrationStep)
-                        + l*integrationStep*activity.getStepObjective());
+        double delta = activity.getStepObjective()-activity.getStepPerMin();
+        activity.setStepPerMin(activity.getStepPerMin()+l*integrationStep*delta);
 
+        //activity.setHeartRate(100);
         activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()));
     }
 }

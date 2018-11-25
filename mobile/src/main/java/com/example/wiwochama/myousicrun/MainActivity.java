@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         this.heartRateModel = new HeartRateModel(stepPerMinBase, stepPerMinMax, 160);
 
         FakeRun fakeRun = new FakeRun(MainActivity.this);
-        fakeRun.startRun();
+        fakeRun.startRunActiveResponse();
     }
 
     public void setHeartRate(double heartRate){
@@ -46,19 +46,19 @@ public class MainActivity extends AppCompatActivity {
                 throw new RuntimeException("You died: invalid heart rate");
             }
         final TextView textView = findViewById(R.id.valueBPM);
-        textView.setText(String.valueOf(heartRate));
+        textView.setText(String.valueOf((int)(heartRate)));
     }
 
     public void setStepPerMin(double stepPerMin){
         this.stepPerMin = stepPerMin;
         final TextView textView = findViewById(R.id.textStepsPerMin);
-        textView.setText(String.valueOf(stepPerMin));
+        textView.setText(String.valueOf((int)(stepPerMin)));
     }
 
     public void setSpeed(double speed){
         this.speed = speed;
         final TextView textView = findViewById(R.id.textSpeed);
-        textView.setText(String.valueOf(speed));
+        textView.setText(String.valueOf((int)(speed)));
     }
 
     public double getHeartRate(){
@@ -71,8 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
     public double getStepObjective(){
         // linear interpolation
-        return heartRateModel.getStepPerMinBase()+ this.pace*
-                (heartRateModel.getStepPerMinMax()-getHeartRateModel().getStepPerMinBase());
+        return getHeartRateModel().getStepPerMinBase()+ this.pace*
+                (getStepPerMin()-getHeartRateModel().getStepPerMinBase())*
+                (getHeartRateModel().getStepPerMinMax()-getHeartRateModel().getStepPerMinBase());
     }
 
     public double getSpeed(){
