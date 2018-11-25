@@ -28,7 +28,7 @@ public class HeartRateModel {
         // aim for the sweet spot heartRate activity.getStepPerMinBase() at 180
         //double c =  heartRateBase* (stepPerMinMax - stepPerMinBase);
         //return c / (stepPerMinMax-stepPerMin);
-        double ret = (220-160)*(stepPerMin-160)/(280-160)+160;
+        double ret = (220-160)*(stepPerMin-160)/(280-160)+190;
         if(ret<60){
             return 60;
         }
