@@ -15,7 +15,8 @@ folder structure:
       ├── mobile                    app for the mobile phone
           ├── src
               ├── main
-                  ├── java          contain the java files necessary to actually do the computations, modulate the music
+                  ├── java          contain the java files necessary 
+                  |                      to actually do the computations, modulate the music
                   └── res           contain the files for the layout 
           └── build
       ├── wear                      in relation with the smartwatch
@@ -29,6 +30,17 @@ folder structure:
 # Sound modulation
 
 We propose here an algorithm to "create" an appropriate music to each type of run and tailored for the usere, withouth user input apart from its biological data from the smart watch (see next section about this part). 
+
+We split a song into three tracks, using bypass filter: `bass` are between 0 and 60 Hz, `medium` are between 60 Hz and 4K Hz and finally `high` contains all the frequencies above.
+
+We then combine them with modified amplitute between the tracks (`bass`,`medium`,`high`). While keeping the speed of playback constant between the tracks, we use it at our advantage.
+
+we suppose the following effect of the music on the runner (motivated by our own experience):
+   1. The stronger the `bass`, the more motivated he will be to do an effort
+   2. The synchronisation between the tempo of the music and his "running tempo" helps him keep his cadence, and he will sligthly modify his own cadence if necessary to match the tempo of the music (if the desynchronisation is small enough)
+   3. More melody might encourage some "heroic" effect and helps him go faster.
+   
+   
 
 # Simulation of the data
 Due to technical issues, 
