@@ -190,12 +190,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setHeartRate(double heartRate) {
-        if (0 <= heartRate && heartRate <= 280) {
+        //if (0 <= heartRate && heartRate <= 280) {
             this.heartRate = heartRate;
-        } else {
+        //} else {
             //you die !!!;
-            throw new RuntimeException("You died: invalid heart rate");
-        }
+            //throw new RuntimeException("You died: invalid heart rate");
+        //}
         final TextView textView = findViewById(R.id.valueBPM);
         textView.setText(String.valueOf((int)(heartRate)));
     }
