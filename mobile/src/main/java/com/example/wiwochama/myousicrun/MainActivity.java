@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     private HeartRateModel heartRateModel;
 
+    private static int musicPace = 120;
     private static float bass_volume = (float) (1 + Math.log(hrObjective / 220));
     private static float high_volume = (float) (Math.log(220 / stepObjective));
 
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                 //Music Pace
                 PlaybackParams plbParam = new PlaybackParams();
-                plbParam.setSpeed((float) stepObjective / 160);
+                plbParam.setSpeed((float) stepObjective / musicPace);
                 //            plbParam.setSpeed((float) (pace / absolutePace));
 
                 //Music Transformation :D
