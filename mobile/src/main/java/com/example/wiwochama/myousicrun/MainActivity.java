@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
     public void play1(View v) {
         //play the first track after having checked if it needed initialization
         if (bass_player == null) {
-            bass_player = MediaPlayer.create(this, R.raw.bass_freak);
+            bass_player = MediaPlayer.create(this, R.raw.basshappy);
             bass_player.setLooping(true);
             bass_player.setVolume(bass_volume, bass_volume);
 
@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void play2(View v) {
         if (high_player == null) {
-            high_player = MediaPlayer.create(this, R.raw.high_freak);
+            high_player = MediaPlayer.create(this, R.raw.highhappy);
             high_player.setLooping(true);
             high_player.setVolume(high_volume, high_volume);
 
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void play3(View v) {
         if (mid_player == null) {
-            mid_player = MediaPlayer.create(this, R.raw.mid_freak);
+            mid_player = MediaPlayer.create(this, R.raw.mihappy);
             mid_player.setLooping(true);
             float mid_volume = Math.min(high_volume, bass_volume);
             mid_player.setVolume(mid_volume, mid_volume);
