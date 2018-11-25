@@ -11,8 +11,11 @@ public class MainActivity extends AppCompatActivity {
     private double speed = 10;
     private int pace = 0;
 
-    private final int stepPerMinBase = 130; // initial base stepPerMin for the session (if pace==0);
-    private final int stepPerMinMax = 280; // maximum stepPerMin defined for the session
+    private HeartRateModel heartRateModel;
+
+    //private final int stepPerMinBase = 130; // initial base stepPerMin for the session (if pace==0);
+    //private final int stepPerMinMax = 280; // maximum stepPerMin defined for the session
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
+        int stepPerMinBase = 130;
+        int stepPerMinMax = 280;
+        HeartRateModel heartRateModel = new HeartRateModel(stepPerMinBase, stepPerMinMax, 160);
         FakeRun fakeRun = new FakeRun(MainActivity.this);
         fakeRun.startRun();
     }
@@ -57,18 +63,16 @@ public class MainActivity extends AppCompatActivity {
 
     public double getStepObjective(){
         // linear interpolation
-        return stepPerMinBase + this.pace*(stepPerMinMax-stepPerMinBase);
+        return heartRateModel.getStepPerMinBase()+ this.pace*
+                (heartRateModel.getStepPerMinMax()-getHeartRateModel().getStepPerMinBase());
     }
 
     public double getSpeed(){
         return this.speed;
     }
 
-    public double getStepPerMinMax(){
-        return this.stepPerMinMax;
-    }
-    public double getStepPerMinBase(){
-        return this.stepPerMinBase;
+    public HeartRateModel getHeartRateModel(){
+        return heartRateModel;
     }
 
     public void increasePace(){

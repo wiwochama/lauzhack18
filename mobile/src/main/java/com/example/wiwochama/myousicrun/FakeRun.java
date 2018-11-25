@@ -40,22 +40,23 @@ public class FakeRun {
         }
     }
 
+    public void startRunActiveResponse(){
+        final double integrationStep = 1;
+        final Handler handler = new Handler();
+        Runnable runnableCode = new Runnable(){
+            @Override
+                    public void run(){
+                respondToMusic(integrationStep, 10);
+                handler.postDelayed(this, (long) (integrationStep*1000));
+            }
+        };
+    }
+
     private void respondToMusic(double integrationStep, double l){
         // pas'(t) = l*(getStepsPace(t) - Pas(t))
         activity.setStepPerMin(activity.getStepPerMin()*(1-l*integrationStep)
                         + l*integrationStep*activity.getStepObjective());
 
-        activity.setHeartRate(getHeartRateFromStepPerMin(activity.getStepPerMin()));
-    }
-
-    private double getStepPerMinFromHeartRate(double heartRate){
-        double c= getHeartRateFromStepPerMin(100)*(100-activity.getStepPerMinMax()); // the value 100 is arbitrary
-        return activity.getStepPerMinMax()- c/heartRate;
-    }
-
-    private double getHeartRateFromStepPerMin(double stepPerMin){
-        // aim for the sweetspot heartRate activity.getStepPerMinBase() at 180
-        double c = activity.getStepPerMinBase()*(activity.getStepPerMinMax()-180);
-        return c/(stepPerMin-280);
+        activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()));
     }
 }
