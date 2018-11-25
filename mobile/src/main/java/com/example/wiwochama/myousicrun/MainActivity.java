@@ -119,9 +119,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         playPause(findViewById(R.id.imageButtonPlayPause));
-
         initialize_queues();
     }
 
@@ -181,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         this.heartRateModel = new HeartRateModel(stepPerMinBase, stepPerMinMax, heartRateBase);
-
+        this.setStepObjective(Double.parseDouble(getIntent().getStringExtra("stepPerMinute")));
         FakeRun fakeRun = new FakeRun(MainActivity.this);
         fakeRun.startRunActiveResponse();
     }
@@ -201,6 +199,13 @@ public class MainActivity extends AppCompatActivity {
         this.stepPerMin = stepPerMin;
         final TextView textView = findViewById(R.id.textStepsPerMin);
         textView.setText(String.valueOf((int)(stepPerMin)));
+        this.checkSmiley();
+    }
+
+    public void setStepObjective(double stepPerMin){
+        this.stepObjective = stepPerMin - (stepPerMin % 5);
+        final TextView textView = findViewById(R.id.textPace);
+        textView.setText(String.valueOf((int)(stepObjective)));
         this.checkSmiley();
     }
 
@@ -234,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
         if (stepObjective < 240) {
             stepObjective += 5;
             final TextView textView = findViewById(R.id.textPace);
-            textView.setText(String.valueOf(stepObjective));
+            textView.setText(String.valueOf((int)stepObjective));
         }
         this.checkSmiley();
     }
@@ -248,7 +253,7 @@ public class MainActivity extends AppCompatActivity {
         if (stepObjective > 100) {
             stepObjective -= 5;
             final TextView textView = findViewById(R.id.textPace);
-            textView.setText(String.valueOf(stepObjective));
+            textView.setText(String.valueOf((int)stepObjective));
         }
         this.checkSmiley();
     }
