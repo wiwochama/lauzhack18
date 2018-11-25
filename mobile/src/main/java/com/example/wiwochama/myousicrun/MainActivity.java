@@ -31,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         int stepPerMinBase = 130;
         int stepPerMinMax = 280;
-        HeartRateModel heartRateModel = new HeartRateModel(stepPerMinBase, stepPerMinMax, 160);
+        this.heartRateModel = new HeartRateModel(stepPerMinBase, stepPerMinMax, 160);
+
         FakeRun fakeRun = new FakeRun(MainActivity.this);
         fakeRun.startRun();
     }

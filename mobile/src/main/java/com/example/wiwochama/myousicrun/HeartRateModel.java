@@ -5,7 +5,7 @@ public class HeartRateModel {
     private final double stepPerMinBase;
     private final double heartRateBase;
 
-    public HeartRateModel(double stepPerMinMax, double stepPerMinBase, double heartRateBase) {
+    public HeartRateModel(double stepPerMinBase, double stepPerMinMax, double heartRateBase) {
         this.stepPerMinBase = stepPerMinBase;
         this.stepPerMinMax = stepPerMinMax;
         this.heartRateBase = heartRateBase;

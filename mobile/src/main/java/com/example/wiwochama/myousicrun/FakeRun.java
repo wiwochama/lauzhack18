@@ -41,15 +41,16 @@ public class FakeRun {
     }
 
     public void startRunActiveResponse(){
-        final double integrationStep = 1;
+        final double integrationStep = 2;
         final Handler handler = new Handler();
         Runnable runnableCode = new Runnable(){
             @Override
                     public void run(){
-                respondToMusic(integrationStep, 10);
+                respondToMusic(integrationStep, 0.001);
                 handler.postDelayed(this, (long) (integrationStep*1000));
             }
         };
+        handler.post(runnableCode);
     }
 
     private void respondToMusic(double integrationStep, double l){
