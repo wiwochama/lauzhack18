@@ -55,23 +55,41 @@ public class FakeRun {
         handler.post(runnableCode);
     }
 
+    private boolean descent_started = false;
+    private int start_descent_time = 0;
+
     private void respondToMusic(double integrationStep, double l){
         // pas'(t) = l*(getStepsPace(t) - Pas(t))
         double delta = activity.getStepObjective()-activity.getStepPerMin();
         //activity.setStepPerMin(activity.getStepPerMin()+l*integrationStep*delta);
         if (activity.getStepPerMin() < activity.getStepObjective()) {
+            descent_started = false;
 
             activity.setStepPerMin(activity.getStepPerMin()+3);
             activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()));
         }
+        else if (activity.getStepPerMin() > activity.getStepObjective()) {
+            if (!descent_started) {
+                start_descent_time = activity.getSeconds();
+                descent_started = true;
+            }
 
-        if (activity.getStepPerMin() > activity.getStepObjective()) {
+
             double old_steps = activity.getStepPerMin();
             double delta_ = old_steps-activity.getStepObjective();
+            int descent_time = activity. getSeconds() - start_descent_time;
 
-            activity.setHeartRate(activity.getHeartRate()-activity.getHeartRateModel().getHeartRateFromStepPerMin_dec(activity.getStepPerMin(),delta_)*activity.getHeartRate());
+            activity.setHeartRate(activity.getHeartRate()-activity.getHeartRateModel().getHeartRateFromStepPerMin_dec(activity.getStepPerMin(),delta_, descent_time)*activity.getHeartRate());
 
             activity.setStepPerMin(activity.getStepPerMin()-1);
+        }
+        else {
+            if (activity.getHeartRate() < activity.getStepPerMin()) {
+                activity.setHeartRate(activity.getHeartRate() + 2);
+            }
+            else {
+                activity.setHeartRate(activity.getHeartRate() -1);
+            }
         }
 
         activity.setSpeed(60*1.25*activity.getStepPerMin()/1000);
