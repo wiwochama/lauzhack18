@@ -66,8 +66,8 @@ public class FakeRun {
 
         if (activity.getStepPerMin() > activity.getStepObjective()) {
             double old_steps = activity.getStepPerMin();
-            double delta = old_steps-activity.getStepObjective();
-            activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin_dec(activity.getStepPerMin(),delta));
+            double delta_ = old_steps-activity.getStepObjective();
+            activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin_dec(activity.getStepPerMin(),delta_));
             activity.setStepPerMin(activity.getStepPerMin()-1);
         }
 
