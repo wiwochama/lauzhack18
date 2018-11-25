@@ -3,15 +3,17 @@ package com.example.wiwochama.myousicrun;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private double heartRate = 60;
-    private double stepPerMin = 100;
+    private double stepPerMin = 180;
     private double speed = 10;
-    private int pace = 0;
+    private int pace = 180;
     private boolean streaming = true;
 
     private final int stepPerMinBase = 130; // initial base stepPerMin for the session (if pace==0);
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         this.stepPerMin = stepPerMin;
         final TextView textView = findViewById(R.id.textStepsPerMin);
         textView.setText(String.valueOf(stepPerMin));
+        this.checkSmiley();
     }
 
     public void setSpeed(double speed){
@@ -79,19 +82,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void increasePace(View view){
-        if (this.pace < 10){
+        if (this.pace < 240){
             this.pace++;
             final TextView textView = findViewById(R.id.textPace);
             textView.setText(String.valueOf(this.pace));
         }
+        this.checkSmiley();
     }
 
     public void decreasePace(View view){
-        if (this.pace > -10){
+        if (this.pace > 100){
             this.pace--;
             final TextView textView = findViewById(R.id.textPace);
             textView.setText(String.valueOf(this.pace));
         }
+        this.checkSmiley();
     }
 
     public void playPause(View view){
@@ -102,5 +107,16 @@ public class MainActivity extends AppCompatActivity {
             imageButton.setImageResource(R.drawable.ic_pause_black_86dp);
         }
         this.streaming = !this.streaming;
+    }
+
+    public void checkSmiley(){
+        final ImageView imageView = findViewById(R.id.imageSmiley);
+        if (Math.abs(this.stepPerMin - this.pace) < 5.0) {
+            imageView.setImageResource(R.drawable.happy);
+        } else if (Math.abs(this.stepPerMin - this.pace) < 15.0){
+            imageView.setImageResource(R.drawable.bof);
+        } else {
+            imageView.setImageResource(R.drawable.bad);
+        }
     }
 }
