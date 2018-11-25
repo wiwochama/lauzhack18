@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     private HeartRateModel heartRateModel;
 
     private static double musicPace = 140;
-    private static float bass_volume = (float) (1 + Math.log(hrObjective / 220));
-    private static float high_volume = (float) (Math.log(220 / stepObjective));
+    private static float bass_volume = (float) (1 + Math.log(hrObjective / 200));
+    private static float high_volume = (float) (0.5*Math.log(220 / stepObjective));
 
 
     private double HR_mean = hrObjective;
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 bass_volume = (float) (1 + Math.log(HR_mean));
 
                 step_mean += (step_now - step_old) / integration_time;
-                high_volume = (float) (Math.log(220 / step_mean));
+                high_volume = (float) (0.5*Math.log(220 / step_mean));
 
 
                 //Music Pace
