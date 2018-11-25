@@ -47,7 +47,7 @@ public class FakeRun {
         Runnable runnableCode = new Runnable(){
             @Override
                     public void run(){
-                respondToMusic(integrationStep, 1);
+                respondToMusic(integrationStep, 0.1);
                 handler.postDelayed(this, (long) (integrationStep*1000));
             }
         };
@@ -59,7 +59,7 @@ public class FakeRun {
         double delta = activity.getPace()-activity.getStepPerMin();
         activity.setStepPerMin(activity.getStepPerMin()+l*integrationStep*delta);
 
-        //activity.setHeartRate(100);
+        activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()));
         activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()));
     }
 }
