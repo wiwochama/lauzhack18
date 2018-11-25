@@ -45,4 +45,4 @@ we suppose the following effect of the music on the runner (motivated by our own
 
 # Simulation of the data
 
-Due to a technical issue during this 24 hours Hackathon, we were not able to get access to a smart watch to collect the physiologic data we need to adapt the music. We simulated the behaviour of a dummy utilisator, with a simple response to the stimuli caused by music: it will always follow its push, never get tired. We know this is not realistic, but 
+Due to a technical issue during this 24 hours Hackathon, we were not able to get access to a smart watch to collect the physiologic data we need to adapt the music. We simulated the behaviour of a dummy utilisator, with a simple response to the new objective: he will always follow the new pace and will never get tired. The heart rate follow 
