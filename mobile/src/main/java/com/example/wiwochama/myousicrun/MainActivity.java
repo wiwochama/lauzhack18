@@ -37,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         integration_time = 5;
     }
 
+    private static int seconds = 0;
+
     private double heartRate = 60;
     private double stepPerMin = 160;
     private double speed = 10;
@@ -47,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private double stepPerMinBase =130;  // initial base stepPerMin for the session (if pace==0);
     private double stepPerMinMax = 280;  // maximum stepPerMin defined for the session
     private double heartRateBase= 130;
-    private double heartRateMax = 220;
 
     private HeartRateModel heartRateModel;
 
@@ -63,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void initialize_queues() {
         for (int i = 0; i < (int) integration_time; i++) {
-//            steps.add(pace);
             steps.add(stepObjective);
             HRs.add(hrObjective);
         }
@@ -74,43 +74,48 @@ public class MainActivity extends AppCompatActivity {
     private Runnable PeriodicUpdate = new Runnable() {
         @Override
         public void run() {
-            // scheduled another events to be in 10 seconds later
-            handler.postDelayed(PeriodicUpdate, 1000);
-            // below is whatever you want to do
 
-            double HR_now = getHeartRate();
-            HRs.add(HR_now);
+            if (!streaming) {
+                seconds++;
 
-            double step_now = getStepPerMin();
-            steps.add(step_now);
-            double HR_old = HRs.remove();
-            double step_old = steps.remove();
+                // scheduled another events to be in 10 seconds later
+                handler.postDelayed(PeriodicUpdate, 1000);
+                // below is whatever you want to do
 
-            //Volume Computation
-            HR_mean += (HR_now - HR_old) / integration_time;
-            bass_volume = (float) (1 + Math.log(HR_mean));
+                double HR_now = getHeartRate();
+                HRs.add(HR_now);
 
-            step_mean += (step_now - step_old) / integration_time;
-            high_volume = (float) (Math.log(220 / step_mean));
+                double step_now = getStepPerMin();
+                steps.add(step_now);
+                double HR_old = HRs.remove();
+                double step_old = steps.remove();
+
+                //Volume Computation
+                HR_mean += (HR_now - HR_old) / integration_time;
+                bass_volume = (float) (1 + Math.log(HR_mean));
+
+                step_mean += (step_now - step_old) / integration_time;
+                high_volume = (float) (Math.log(220 / step_mean));
 
 
-            //Music Pace
-            PlaybackParams plbParam = new PlaybackParams();
-            plbParam.setSpeed((float) stepObjective / 160);
-//            plbParam.setSpeed((float) (pace / absolutePace));
+                //Music Pace
+                PlaybackParams plbParam = new PlaybackParams();
+                plbParam.setSpeed((float) stepObjective / 160);
+                //            plbParam.setSpeed((float) (pace / absolutePace));
 
-            //Music Transformation :D
-            if (bass_player != null && streaming) {
-                bass_player.setPlaybackParams(plbParam);
-                bass_player.setVolume(bass_volume, bass_volume);
+                //Music Transformation :D
+                if (bass_player != null) {
+                    bass_player.setPlaybackParams(plbParam);
+                    bass_player.setVolume(bass_volume, bass_volume);
 
-            }
-            if (high_player != null && streaming) {
-                high_player.setPlaybackParams(plbParam);
-                high_player.setVolume(high_volume, high_volume);
-            }
-            if (mid_player != null && streaming) {
-                mid_player.setPlaybackParams(plbParam);
+                }
+                if (high_player != null) {
+                    high_player.setPlaybackParams(plbParam);
+                    high_player.setVolume(high_volume, high_volume);
+                }
+                if (mid_player != null) {
+                    mid_player.setPlaybackParams(plbParam);
+                }
             }
         }
     };
@@ -146,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         if (mid_player == null) {
             mid_player = MediaPlayer.create(this, R.raw.mid_freak);
             mid_player.setLooping(true);
-            float mid_volume = (high_volume + bass_volume) / 2;
+            float mid_volume = Math.min(high_volume, bass_volume);
             mid_player.setVolume(mid_volume, mid_volume);
 
         }
@@ -213,6 +218,10 @@ public class MainActivity extends AppCompatActivity {
         this.speed = speed;
         final TextView textView = findViewById(R.id.textSpeed);
         textView.setText(String.valueOf((int)(speed)));
+    }
+
+    public int getSeconds() {
+        return seconds;
     }
 
     public double getHeartRate() {
@@ -291,7 +300,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void stop(View v) {
-        playPause(v);
+        if (streaming){
+            playPause(v);
+        }
         stopPlayer();
     }
 

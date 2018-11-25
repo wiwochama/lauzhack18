@@ -30,8 +30,9 @@ public class HeartRateModel {
         return c / (stepPerMinMax-stepPerMin);
     }
 
-    public double getHeartRateFromStepPerMin_dec(double stepPerMin, double delta) {
+
+    public double getHeartRateFromStepPerMin_dec(double stepPerMin, double delta, int descent_time) {
         // diff entre le nouveau et l'ancien heartbeat
-        return 0.005 ;
+        return descent_time*descent_time/(stepPerMin*stepPerMin) ;
     }
 }
