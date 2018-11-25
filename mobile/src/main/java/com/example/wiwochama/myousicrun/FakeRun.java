@@ -57,8 +57,9 @@ public class FakeRun {
 
     private boolean descent_started = false;
     private int start_descent_time = 0;
+    private double inertia_heartrate = 3;
 
-    private void respondToMusic(double integrationStep, double l){
+    private void respondToMusicOld(double integrationStep, double l){
         // pas'(t) = l*(getStepsPace(t) - Pas(t))
         double delta = activity.getStepObjective()-activity.getStepPerMin();
         //activity.setStepPerMin(activity.getStepPerMin()+l*integrationStep*delta);
@@ -81,14 +82,56 @@ public class FakeRun {
 
             activity.setHeartRate(activity.getHeartRate()-activity.getHeartRateModel().getHeartRateFromStepPerMin_dec(activity.getStepPerMin(),delta_, descent_time)*activity.getHeartRate());
 
-            activity.setStepPerMin(activity.getStepPerMin()-1);
+            activity.setStepPerMin(activity.getStepPerMin()-2);
         }
         else {
             if (activity.getHeartRate() < activity.getStepPerMin()) {
-                activity.setHeartRate(activity.getHeartRate() + 2);
+                activity.setHeartRate(activity.getHeartRate() + 2); // to boost the heart rate, so as it converges faster
             }
             else {
                 activity.setHeartRate(activity.getHeartRate() -1);
+            }
+        }
+        activity.setSpeed(60*1.25*activity.getStepPerMin()/1000);
+    }
+
+    private void respondToMusic(double integrationStep, double l){
+        // pas'(t) = l*(getStepsPace(t) - Pas(t))
+        double delta = activity.getStepObjective()-activity.getStepPerMin();
+        //activity.setStepPerMin(activity.getStepPerMin()+l*integrationStep*delta);
+        if (activity.getStepPerMin() < activity.getStepObjective()) {
+            descent_started = false;
+
+            activity.setStepPerMin(activity.getStepPerMin()+3);
+            activity.setHeartRate(activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()));
+
+            inertia_heartrate = 3;
+        }
+        else if (activity.getStepPerMin() > activity.getStepObjective()) {
+            if (!descent_started) {
+                start_descent_time = activity.getSeconds();
+                descent_started = true;
+            }
+
+
+            double old_steps = activity.getStepPerMin();
+            double delta_ = old_steps-activity.getStepObjective();
+            int descent_time = activity. getSeconds() - start_descent_time;
+
+            //activity.setHeartRate(activity.getHeartRate()-activity.getHeartRateModel().getHeartRateFromStepPerMin_dec(activity.getStepPerMin(),delta_, descent_time));
+            double overshootHeartRate = activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()) - activity.getHeartRate();
+            activity.setHeartRate(activity.getHeartRate() + overshootHeartRate/5.0);
+
+            activity.setStepPerMin(activity.getStepPerMin()-1);
+
+        }
+        else {
+            if(inertia_heartrate >0) {
+                activity.setHeartRate(activity.getHeartRate() + inertia_heartrate); // to boost the heart rate, so as it converges faster
+                inertia_heartrate -=0.5;
+            }else{
+                double overshootHeartRate = activity.getHeartRateModel().getHeartRateFromStepPerMin(activity.getStepPerMin()) - activity.getHeartRate();
+                activity.setHeartRate(activity.getHeartRate() + overshootHeartRate/5.0);
             }
         }
 
